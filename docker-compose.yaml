@@ -1,6 +1,6 @@
 services:
   consumer:
-    image: myfinances-consumer:latest
+    image: rphmauriciodev/myfinances-consumer:v1
     container_name: myfinances-consumer
     restart: always
     environment:
