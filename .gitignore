@@ -1,0 +1,44 @@
+# Binários e arquivos compilados
+bin/
+dist/
+build/
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+main
+bootstrap
+*.zip
+
+# Testes e cobertura
+*.out
+coverage.txt
+coverage.html
+profile.out
+
+# Dependências (descomente se não for versionar a pasta vendor)
+# vendor/
+
+# Variáveis de ambiente e credenciais
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Ferramentas AWS / Serverless / SAM (se aplicável)
+.aws-sam/
+.serverless/
+
+# IDEs e Editores
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Sistema Operacional
+.DS_Store
+Thumbs.db
