@@ -19,7 +19,7 @@ func NewPostgresRepository(p *pgxpool.Pool) *PostgresRepository {
 
 func (r *PostgresRepository) SaveTransaction(ctx context.Context, transaction *processing.Transaction) error {
 	query := `
-		INSERT INTO transactions (name, merchant, card_or_pass, amount, date)
+		INSERT INTO transactions (name, merchant, card_or_pass, amount_value, transaction_date)
 		VALUES ($1, $2, $3, $4, $5)
 	`
 
@@ -29,8 +29,8 @@ func (r *PostgresRepository) SaveTransaction(ctx context.Context, transaction *p
 		transaction.Name,
 		transaction.Merchant,
 		transaction.CardOrPass,
-		transaction.Amount,
-		transaction.Date,
+		transaction.AmountValue,
+		transaction.TransactionDate,
 	)
 
 	if err != nil {

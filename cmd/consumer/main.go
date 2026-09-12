@@ -4,6 +4,7 @@ import (
 	"context"
 	"log/slog"
 
+	"github.com/rphmauriciodev/myFinances-consumer/internal/dto"
 	"github.com/rphmauriciodev/myFinances-consumer/internal/platform"
 	"github.com/rphmauriciodev/myFinances-consumer/internal/processing"
 	"github.com/rphmauriciodev/myFinances-consumer/internal/queue"
@@ -57,13 +58,13 @@ func main() {
 			}
 			slog.Info("Mensagem recebida da fila SQS", "mensagem", message.Body)
 
-			transaction, err := processing.ParseTransaction(*message.Body)
+			transactionDTO, err := dto.ParseTransaction(*message.Body)
 			if err != nil {
-				slog.Error("Erro ao processar a mensagem da fila SQS", "erro", err)
+				slog.Error("Erro ao parsear a mensagem para DTO Transaction", "mensagem", message.Body)
 				continue
 			}
 
-			if err := processor.ProcessTransactions(ctx, transaction); err != nil {
+			if err := processor.ProcessTransactions(ctx, *transactionDTO); err != nil {
 				slog.Error("Erro ao processar a transação", "erro", err)
 				continue
 			}

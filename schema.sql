@@ -3,6 +3,6 @@ CREATE TABLE IF NOT EXISTS transactions (
     name TEXT NOT NULL,
     merchant TEXT NOT NULL,
     card_or_pass TEXT NOT NULL,
-    amount TEXT NOT NULL,
-    date TEXT NOT NULL
+    amount_value NUMERIC;
+    transaction_date TIMESTAMP;
 );
