@@ -69,5 +69,5 @@ func parseAmount(amount string) (int64, error) {
 }
 
 func parseDate(date string) (time.Time, error) {
-	return time.Parse("02 Jan 2006 at 15:04", date)
+	return time.Parse("2 Jan 2006 at 15:04", date)
 }
