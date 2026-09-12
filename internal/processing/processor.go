@@ -55,10 +55,11 @@ func parseTransaction(dto dto.Transaction) (*Transaction, error) {
 }
 
 func parseAmount(amount string) (int64, error) {
+	amount = strings.ReplaceAll(amount, "R$", "")
+	amount = strings.ReplaceAll(amount, "\u00a0", "")
+	amount = strings.ReplaceAll(amount, " ", "")
 	amount = strings.ReplaceAll(amount, ".", "")
 	amount = strings.ReplaceAll(amount, ",", "")
-	amount = strings.ReplaceAll(amount, "R$", "")
-	amount = strings.ReplaceAll(amount, " ", "")
 
 	value, err := strconv.ParseInt(amount, 10, 64)
 	if err != nil {
