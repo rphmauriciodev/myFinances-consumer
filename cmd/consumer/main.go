@@ -54,6 +54,10 @@ func main() {
 			continue
 		}
 
+		if len(messages) == 0 {
+			slog.Info("Nenhuma mensagem recebida da fila SQS, aguardando por novas mensagens...")
+		}
+
 		for _, message := range messages {
 			if message.Body == nil || message.ReceiptHandle == nil {
 				slog.Error("Mensagem inválida recebida da fila SQS", "mensagem", message)
