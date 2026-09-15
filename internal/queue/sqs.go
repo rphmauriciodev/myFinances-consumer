@@ -32,6 +32,7 @@ func (q *Queue) ReceiveMessages(ctx context.Context, maxMessages int32) ([]types
 	output, err := q.client.ReceiveMessage(ctx, &sqs.ReceiveMessageInput{
 		QueueUrl:            aws.String(q.queueURL),
 		MaxNumberOfMessages: maxMessages,
+		WaitTimeSeconds:     20,
 	})
 	if err != nil {
 		return nil, err

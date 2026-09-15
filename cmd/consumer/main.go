@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"log/slog"
+	"time"
 
 	"github.com/rphmauriciodev/myFinances-consumer/internal/dto"
 	"github.com/rphmauriciodev/myFinances-consumer/internal/platform"
@@ -31,10 +32,6 @@ func main() {
 	repo := platform.NewPostgresRepository(pool)
 
 	processor := processing.NewProcessor(repo)
-	if err != nil {
-		slog.Error("Erro ao inicializar o processador", "erro", err)
-		return
-	}
 
 	queue, err := queue.NewQueue(ctx, v.GetString("SQS_QUEUE_URL"))
 	if err != nil {
@@ -48,6 +45,12 @@ func main() {
 		messages, err := queue.ReceiveMessages(ctx, 10)
 		if err != nil {
 			slog.Error("Erro ao receber mensagens da fila SQS", "erro", err)
+
+			select {
+			case <-time.After(5 * time.Second):
+			case <-ctx.Done():
+				return
+			}
 			continue
 		}
 
